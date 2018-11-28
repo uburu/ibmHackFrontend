@@ -1,0 +1,33 @@
+.header {grid-area: header;}
+.main { 
+  grid-area: main; 
+  margin: 5%; 
+}
+.left { 
+  grid-area: left;
+  /* background-color: #333; */
+}
+.right { 
+  grid-area: right;
+  /* background-color: #333; */
+}
+
+.footer { 
+  margin: 0%;
+  padding: 2%;
+  overflow: hidden;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  grid-area: footer;
+  background-color: #333;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-areas:
+    'header header header header header header'
+    'left main main main main right'
+    'footer footer footer footer footer footer';
+  
+}
