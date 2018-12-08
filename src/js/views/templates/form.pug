@@ -1,0 +1,11 @@
+extends base.pug
+
+block content
+    form(id= id)
+        for field in fields
+            p= field.placeholder
+            input(name= field.name, type= field.type, placeholder= field.placeholder, id= field.id)
+            span(hidden, id= field.errorId)
+        input(name="submit", type="submit")
+    div
+        span(hidden id= actionError)= actionErrorMessage

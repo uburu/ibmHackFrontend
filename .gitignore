@@ -1,0 +1,8 @@
+### Node.js ###
+/node_modules/
+
+### WebStorm ###
+.idea
+
+### dist ###
+main.bundle.js
