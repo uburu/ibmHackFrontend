@@ -7,9 +7,8 @@ export default class ProfileModel {
 	// используется для проверки на сервере залогинен ли пользователь
 	static loadCurrentProfile() { 
 		const currentUserId = getCookie('id');
-		fetchModule.doGet({ path: '/profiles/' + currentUserId })
+		fetchModule.doGet({ useUrl:'db', path: '/blocks/' })
 			.then(  response => {
-				console.log(response);
 				if (response.status === 200) {
 					return response.json();
 				}
@@ -29,10 +28,14 @@ export default class ProfileModel {
 	
 	// используется для получаения данных профиля любого пользователя
 	static loadProfile (id) {
-		return fetchModule.doGet({ path: `/profiles/${id}` })
+		return fetchModule.doGet({ useUrl:'db', path: `/blocks/${id}` }, console.log("eeeyy"))
 			.then(response => {
-				if (response.status === 200) {
-					return response.json();
+				const tmpData = response.json();
+				console.log("cmon", response.status, response.body.locked, tmpData);
+				if ((response.status === 200)){
+					console.log("cmon", response.body.locked,tmpData);
+					return tmpData;
+					
 				}
 				Bus.emit('error'); // TODO errors
 			})
@@ -49,10 +52,10 @@ export default class ProfileModel {
 			'Authorization': 'Bearer ' + authToken
 		}
 
-		return fetchModule.doPatch({ path: `/profiles/${id}`, body: data, headers: changeHeaders })
+		return fetchModule.doPatch({ useUrl:'db', path: `/users/${id}`, body: data, headers: changeHeaders })
 			.then(response => {
 				if (response.status === 200) {
-					Router.open(`/profile/${id}`);
+					Router.open(`/users/${id}`);
 				}
 				if (response.status === 401) {
 					console.log('change Not auth:', response.status);

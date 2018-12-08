@@ -44,12 +44,13 @@ Bus.on('error', (error) => {
 
 function main () {
 	[['/', MenuView],
-		['/signup', SignupView],
-		['/signin', SigninView],
-		['/profile', ProfileView],
-		['/change', ChangeView],
-		['/create_recipe', CreateRecipeView],
-		['/recipe', RecipeView]
+		['/create', SignupView],
+		// ['/signin', SigninView],
+		['/open', SigninView],
+		['/recipe', ProfileView],
+		// ['/change', ChangeView],
+		// ['/create_recipe', CreateRecipeView],
+		// ['/recipe', RecipeView]
 		// ['/leaderboard', LeaderboardView],
 		// ['/about', AboutView]
 	].forEach((route) => { Router.register(route[0], route[1]); });

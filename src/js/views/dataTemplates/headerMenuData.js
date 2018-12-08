@@ -1,24 +1,12 @@
 export function authMenuHeader(id) {
     return [
         {
-            label: 'Профиль',
-            href: `/profile/${id}`
-        },
-        {
-            label: 'Выписать рецепт',
-            href: '/make_recipe'
-        },
-        {
-            label: 'Созданные рецепты',
-            href: '/my_recipes'
+            label: 'Создать рецепт',
+            href: '/create'
         },
         {
             label: 'Открыть рецепт',
-            href: '/recipe'
-        },
-        {
-            label: 'Выйти',
-            href: '/signout'
+            href: '/open'
         }
     ]
 }
@@ -26,16 +14,12 @@ export function authMenuHeader(id) {
 export function notAuthMenuHeader() {
     return [
         {
-            label: 'Вход',
-            href: '/signin'
-        },
-        {
-            label: 'Регистрация',
-            href: '/signup'
+            label: 'Создать рецепт',
+            href: '/create'
         },
         {
             label: 'Открыть рецепт',
-            href: '/recipe'
+            href: '/open'
         }
     ]
 }

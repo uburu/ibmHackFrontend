@@ -16,18 +16,11 @@ const data = {
 	actionErrorMessage: 'Incorrect login or password',
 	fields: [
 		{
-			id: 'username_input',
-			name: 'username',
+			id: 'index_input',
+			name: 'index',
 			type: 'text',
-			placeholder: 'Имя пользователя',
-			errorId: 'username_error'
-		},
-		{
-			id: 'password_input',
-			name: 'password',
-			type: 'password',
-			placeholder: 'Пароль',
-			errorId: 'password_error'
+			placeholder: 'Номер рецепта',
+			errorId: 'index_error'
 		}
 	]
 };
@@ -48,18 +41,8 @@ export default class SigninView extends BaseView {
 	}
 
 	render (user) {
-		if (!user.is_authenticated) {
-			this._template = form;
-			super.render(data);
-		} else {
-			const permissionMessageData = {
-				headerValues: authMenuHeader(user.id),
-				title: 'Sign in',
-				message: 'You have been already signed in'
-			};
-			this._template = permissionMessageTmpl;
-			super.render(permissionMessageData);
-		}
+		this._template = form;
+		super.render(data);
 		Bus.off('done-get-user', this.render.bind(this));
 	}
 

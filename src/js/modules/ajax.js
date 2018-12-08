@@ -1,12 +1,20 @@
-const serverUrl = 'http://176.119.156.66';
+const serverDbUrl = 'http://127.0.0.1:3000';
+const serverBlockUrl = 'https://ibmhackblockchain.now.sh';
 
 export class fetchModule {
-	static _ajax ({ method = 'GET', path = '/', body, headers } = {}) {
-		const url = serverUrl + path;
+	static _ajax ({ useUrl='db', method = 'GET', path = '/', body, headers } = {}) {
+		let theUrl = "";
+		if (useUrl === 'db'){
+			theUrl = serverBlockUrl;
+		} else if ( useUrl === 'block'){
+			theUrl = serverDbUrl;
+		}
+
+		const url = theUrl + path;
 
 		const options = {
 			mode: 'cors',
-			credentials: 'include',
+			// credentials: 'false',
 			method: method,
 			headers: {}
 		};
@@ -15,6 +23,7 @@ export class fetchModule {
 		}
 
 		if (body) {
+			console.log("body: ", body);
 			options.headers['Content-Type'] = 'application/json; charset=utf-8' ;
 			options.body = JSON.stringify(body);
 		}
@@ -26,6 +35,7 @@ export class fetchModule {
 	}
 
 	static doPost (params = {}) {
+		console.log("do post ", params);
 		return this._ajax({ ...params, method: 'POST' });
 	}
 

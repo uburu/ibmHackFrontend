@@ -10,39 +10,32 @@ const permissionMessageTmpl = require('./templates/notPermittedAction.pug');
 
 const data = {
 	headerValues: notAuthMenuHeader(),
-	title: 'Registration',
+	title: 'Создание рецепта',
 	id: 'signup',
 	actionError: 'signUpError',
-	actionErrorMessage: 'Such user has already been created',
+	actionErrorMessage: '',
 	fields: [
 		{
-			id: 'username_input',
-			name: 'username',
+			id: 'doctor_input',
+			name: 'doctor',
 			type: 'text',
-			placeholder: 'Имя пользователя',
-			errorId: 'username_error'
+			placeholder: 'ФИО врача',
+			errorId: 'doctor_error'
 		},
 		{
-			id: 'email_input',
-			name: 'email',
-			type: 'email',
-			placeholder: 'Email',
-			errorId: 'email_error'
+			id: 'patient_input',
+			name: 'patient',
+			type: 'text',
+			placeholder: 'ФИО пациента',
+			errorId: 'patient_error'
 		},
 		{
-			id: 'password_input',
-			name: 'password',
-			type: 'password',
-			placeholder: 'Пароль',
-			errorId: 'password_error'
+			id: 'recipe_input',
+			name: 'recipe',
+			type: 'text',
+			placeholder: 'Рецепт',
+			errorId: 'recipe_error'
 		},
-		{
-			id: 'password_repeat_input',
-			name: 'password_repeat',
-			type: 'password',
-			placeholder: 'Повторите пароль',
-			errorId: 'password_repeat_error'
-		}
 	]
 };
 
@@ -62,18 +55,19 @@ export default class SignupView extends BaseView {
 	}
 
 	render (user) {
-		if (!user.is_authenticated) {
-			this._template = form;
-			super.render(data);
-		} else {
-			const permissionMessageData = {
-				headerValues: authMenuHeader(user.id),
-				title: 'Registration',
-				message: 'You have been already registered and signed in'
-			};
-			this._template = permissionMessageTmpl;
-			super.render(permissionMessageData);
-		}
+		this._template = form;
+		super.render(data);
+		// if (!user.is_authenticated) {
+			
+		// } else {
+		// 	const permissionMessageData = {
+		// 		headerValues: authMenuHeader(user.id),
+		// 		title: 'Создание рецепта',
+		// 		message: 'Произошла ошибка'
+		// 	};
+		// 	this._template = permissionMessageTmpl;
+		// 	super.render(permissionMessageData);
+		// }
 		Bus.off('done-get-user', this.render.bind(this));
 	}
 

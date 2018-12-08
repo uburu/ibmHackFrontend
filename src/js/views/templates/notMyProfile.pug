@@ -3,8 +3,18 @@ extends base.pug
 block content
     div
         div
-            h3= 'Username: ' + user.username
+            h3= 'Номер рецепта: '
+            h2= user.index
+            br
         div
-            h3= 'Email: ' + user.email
+            h3= 'Врач: ' 
+            h2= user.data.doctor
+            br
         div
-            h3= 'Score: ' + user.score
+            h3= 'Пациент: ' 
+            h2= user.data.patient
+            br
+        div
+            h3= 'Рецепт: ' 
+            h2= user.data.recipe
+            

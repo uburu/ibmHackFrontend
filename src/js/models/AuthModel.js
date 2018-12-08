@@ -3,17 +3,22 @@ import { setCookie } from '../utils.js';
 import { getCookie } from '../utils.js';
 import { deleteCookie } from '../utils.js';
 import Bus from '../modules/Bus.js';
+import Router from '../modules/Router.js';
 
 export default class AuthModel {
 	static Register (data) {
-		return fetchModule.doPost({ path: '/profiles', body: data })
+		return fetchModule.doPost({ useUrl:'db', path: '/mineBlock', body: {data: data} })
 			.then(response => {
-				// console.log('Registration response: ', response);
 				if (response.status === 200) {
+					alert("Рецепт успешно создан")
+					// alert("Рецепт успешно создан");
 					// console.log('Registration Done: ', response.status);
-					const username = data.username;
-					const password = data.password;
-					Bus.emit('submit-data-signin', { username, password });
+					// const doctor = data.doctor;
+					// const patient = data.patient;
+					// const recipe = data.recipe;
+					// const work = data.work;
+					// const specialty = data.specialty;
+					// Bus.emit('submit-data-signin', { doctor, patient, recipe });
 				}
 				if (response.status === 409) {
 					// console.log('email duplicate: ', response.status);
@@ -30,30 +35,7 @@ export default class AuthModel {
 	}
 
 	static Signin (data) {
-		return fetchModule.doPost({ path: '/auth/session', body: data })
-			.then(response => {
-				console.log('SignIN response: ', response);
-				if (response.status === 200) {
-					// console.log('SignIN Done: ', response.status);
-					return response.json();
-				}
-				if (response.status === 401) {
-					// console.log('NOT AUTH: ', response.status);
-					Bus.emit('unsuccess-signin');
-				}
-				if (response.status === 422) {
-					// console.log('SignIN validation error: ', response.status);
-					return Promise.reject(response.status);
-				}
-			})
-			.then((user) => {
-				setCookie('id',user.profile_id.toString());
-				setCookie('auth_token', user.auth_token);
-				Bus.emit('wipe-views');
-			})
-			.catch((err) => {
-				Bus.emit('unsuccess-signin');
-			});
+		Router.open(`/recipe/${data.index}`)
 	}
 
 	static Signout () {
@@ -61,7 +43,7 @@ export default class AuthModel {
 		const signOutHeaders = {
 			'Authorization': 'Bearer ' + authToken
 		}
-		fetchModule.doDelete({path: '/auth/session', headers: signOutHeaders})
+		fetchModule.doDelete({useUrl:'db', path: '/users/session', headers: signOutHeaders})
 			.then( response => {
 				if (response.status === 200) {
 					deleteCookie('id');

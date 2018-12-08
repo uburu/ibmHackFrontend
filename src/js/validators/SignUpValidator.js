@@ -7,16 +7,16 @@ export default class SignUpValidator {
 			return false;
 		}
 
-		const pass1 = document.getElementById('password_input');
-		const pass2 = document.getElementById('password_repeat_input');
+		// const pass1 = document.getElementById('password_input');
+		// const pass2 = document.getElementById('password_repeat_input');
 
-		if (!this._isPasswordsMatching(pass1, pass2)) {
-			return false;
-		}
+		// if (!this._isPasswordsMatching(pass1, pass2)) {
+		// 	return false;
+		// }
 
-		if (!this._isPasswordLongEnough(pass1)) {
-			return false;
-		}
+		// if (!this._isPasswordLongEnough(pass1)) {
+		// 	return false;
+		// }
 		return true;
 	}
 
